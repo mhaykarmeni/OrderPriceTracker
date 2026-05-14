@@ -67,7 +67,7 @@ Replaces `std::map` with `boost::container::flat_map` — a sorted contiguous ar
 
 Identical in design to `OrderBookBoostFlatMap` but uses the C++23 standard `std::flat_map`. Requires GCC 15+ / libstdc++ 15. Performance characteristics are the same as the Boost variant.
 
-### OrderBookAggressive
+### OrderBookFlatHMap (Aggressive)
 
 Designed for minimum latency. Three key ideas:
 
@@ -97,7 +97,7 @@ Order ID → (price, qty, side) is stored in a 2M-slot array with Fibonacci hash
 
 | Implementation | AMD Ryzen 7 7730U (cycles/op) | Intel Core Ultra 7 155U WSL2 (cycles/op) |
 |---|---|---|
-| `OrderBookAggressive` | **70** | **87** |
+| `OrderBookFlatHMap` | **70** | **87** |
 | `OrderBookSTDMap` | 385 | 418 |
 | `OrderBookSTDFlatMap` | 1,908 | 2,897 |
 | `OrderBookBoostFlatMap` | 2,115 | 2,973 |

@@ -85,12 +85,12 @@ class OrderBookSTDFlatMap : public OrderBookMapBase<OrderBookSTDFlatMap> {
 
 // ── Aggressive: flat hash map + 3-level bitset ─────────────────────────────
 
-class OrderBookAggressive : public OrderBookBase<OrderBookAggressive> {
+class OrderBookFlatHMap : public OrderBookBase<OrderBookFlatHMap> {
 public:
-    OrderBookAggressive(const OrderBookAggressive&)            = delete;
-    OrderBookAggressive& operator=(const OrderBookAggressive&) = delete;
+    OrderBookFlatHMap(const OrderBookFlatHMap&)            = delete;
+    OrderBookFlatHMap& operator=(const OrderBookFlatHMap&) = delete;
 
-    inline OrderBookAggressive() {
+    inline OrderBookFlatHMap() {
         m_map = static_cast<Slot*>(std::aligned_alloc(64, sizeof(Slot) * MAP_CAP));
         for (int i = 0; i < MAP_CAP; ++i) m_map[i].id = EMPTY_ID;
         for (int s = 0; s < 2; ++s)
@@ -100,7 +100,7 @@ public:
         std::memset(m_l3, 0, sizeof(m_l3));
     }
 
-    inline ~OrderBookAggressive() {
+    inline ~OrderBookFlatHMap() {
         std::free(m_map);
         for (int s = 0; s < 2; ++s) delete[] m_qty[s];
     }

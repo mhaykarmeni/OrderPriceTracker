@@ -90,7 +90,7 @@ RegisterBenchmark make_benchmark(const char* name) {
 static auto reg_stdmap       = make_benchmark<OrderBookSTDMap>      ("BM_STDMap");
 static auto reg_boost_flat   = make_benchmark<OrderBookBoostFlatMap>("BM_BoostFlatMap");
 static auto reg_std_flat     = make_benchmark<OrderBookSTDFlatMap>  ("BM_STDFlatMap");
-static auto reg_aggressive   = make_benchmark<OrderBookAggressive>  ("BM_Aggressive");
+static auto reg_flat_hmap    = make_benchmark<OrderBookFlatHMap>  ("BM_FlatHMap");
 
 } // namespace
 
