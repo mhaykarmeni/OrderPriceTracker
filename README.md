@@ -92,16 +92,17 @@ Order ID → (price, qty, side) is stored in a 2M-slot array with Fibonacci hash
 
 ### Results
 
-**Machine:** AMD Ryzen 7 7730U, 16 logical cores, ~2.0 GHz, 8 GiB RAM
-**Cache:** L1d 256 KiB × 8, L2 4 MiB × 8, L3 16 MiB
 **Compiler:** GCC 15.2.0, `-O3 -march=native`
 **Workload:** 100,000 operations per run, 10 iterations
 
-| Implementation | Cycles/op | vs Aggressive |
+| Implementation | AMD Ryzen 7 7730U (cycles/op) | Intel Core Ultra 7 155U WSL2 (cycles/op) |
 |---|---|---|
-| `OrderBookAggressive` | **70** | 1× |
-| `OrderBookSTDMap` | 385 | 5.5× slower |
-| `OrderBookSTDFlatMap` | 1,908 | 27× slower |
-| `OrderBookBoostFlatMap` | 2,115 | 30× slower |
+| `OrderBookAggressive` | **70** | **87** |
+| `OrderBookSTDMap` | 385 | 418 |
+| `OrderBookSTDFlatMap` | 1,908 | 2,897 |
+| `OrderBookBoostFlatMap` | 2,115 | 2,973 |
+
+**AMD Ryzen 7 7730U:** 16 logical cores, ~2.0 GHz, 8 GiB RAM, L1d 256 KiB × 8, L2 4 MiB × 8, L3 16 MiB
+**Intel Core Ultra 7 155U (WSL2):** 7 logical cores, ~2.7 GHz, 20 GiB RAM, L1d 48 KiB × 4, L2 2 MiB × 4, L3 12 MiB
 
 The flat map variants are slowest due to O(n) shifts on insert/cancel across up to 1,000,000 price levels. `std::map` handles those in O(log n) via a red-black tree. The aggressive implementation avoids tree overhead entirely with a direct-indexed quantity array and a 3-level bitset for O(1) `best_bid`/`best_ask`.
