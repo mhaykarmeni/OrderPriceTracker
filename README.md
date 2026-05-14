@@ -92,7 +92,10 @@ Order ID → (price, qty, side) is stored in a 2M-slot array with Fibonacci hash
 
 ### Results
 
-Measured on GCC 15.2.0 (`-O3 -march=native`), 100,000 operations per run, 10 iterations:
+**Machine:** AMD Ryzen 7 7730U, 16 logical cores, ~2.0 GHz, 8 GiB RAM
+**Cache:** L1d 256 KiB × 8, L2 4 MiB × 8, L3 16 MiB
+**Compiler:** GCC 15.2.0, `-O3 -march=native`
+**Workload:** 100,000 operations per run, 10 iterations
 
 | Implementation | Cycles/op | vs Aggressive |
 |---|---|---|
